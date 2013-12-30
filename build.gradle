@@ -1,0 +1,15 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+mainClassName = 'uber7.Server'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.2.1'
+    compile 'com.sparkjava:spark-core:1.1.1'
+}
