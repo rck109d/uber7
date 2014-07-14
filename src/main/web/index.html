@@ -2,18 +2,26 @@
   <head>
     <title>Uber7</title>
     <style type="text/css">
-      body {background:black;}
+      body {background:black;color: white;}
     </style>
   </head>
   <body>
     <canvas></canvas>
-    <audio src="track1.mp3" controls loop>
+    <div data-bind="with: pad">
+      <input type="range" min="-100" max="100" data-bind="value: axes[0]*100">
+      <input type="range" min="-100" max="100" data-bind="value: axes[1]*100">
+      <input type="range" min="-100" max="100" data-bind="value: axes[2]*100">
+      <input type="range" min="-100" max="100" data-bind="value: axes[3]*100">
+    </div>
+    <audio src="track1.mp3" controls loop></audio>
     <img id="robot" src="robot.png" style="display:none"/>
-    <script src="js/uber7.js"></script>
-    <script src="js/uber7.util.js"></script>
-    <script src="js/uber7.map.js"></script>
-    <script src="js/uber7.bullet.js"></script>
-    <script src="js/uber7.player.js"></script>
-    <script src="js/uber7.input.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/bullet.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/input.js"></script>
   </body>
 </html>
