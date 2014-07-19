@@ -5,37 +5,35 @@ define(
 .concat(),
 function(_, $, ko, input, map, player, bullet) {
   'use strict';
+  var canvas = document.querySelector('canvas');
+  var canvasContext = canvas.getContext("2d");
   function App() {
     if(!this instanceof App) {
       return new App();
     }
     var self = this;
     self.pad = ko.observable();
-    var canvas = document.querySelector('canvas');
-    var style = {
+    _.extend(canvas.style, {
       display : 'block',
       width : map.WORLD_WIDTH,
       height : map.WORLD_HEIGHT,
       margin : 'auto',
       background : 'black',
       border : '1px solid white'
-    };
-    for (var field in style) {
-      canvas.style[field] = style[field];
-    }
-    canvas.width = map.WORLD_WIDTH;
-    canvas.height = map.WORLD_HEIGHT;
+    });
+    _.extend(canvas, {
+      width : map.WORLD_WIDTH,
+      height : map.WORLD_HEIGHT
+    });
     function move(dt) {
       player.move(dt);
       bullet.move(dt);
     }
     function draw(dt) {
-      var canvas = document.querySelector('canvas');
-      var ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      map.draw(ctx, dt);
-      player.draw(ctx);
-      bullet.draw(ctx);
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      map.draw(canvasContext, dt);
+      player.draw(canvasContext);
+      bullet.draw(canvasContext);
     }
     var step = (function() {
       var lastTime;
