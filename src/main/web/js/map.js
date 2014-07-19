@@ -1,12 +1,15 @@
-/*global window */
+/*global define */
 /*jshint unused:true, undef: true, eqnull:true */
-(function() {
+define(
+['util']
+.concat(),
+function(util) {
   'use strict';
-  var randi = window.uber7.util.randi;
-  var dist = window.uber7.util.dist;
-  var rectsOverlap = window.uber7.util.rectsOverlap;
-  var WORLD_WIDTH = window.uber7.WORLD_WIDTH;
-  var WORLD_HEIGHT = window.uber7.WORLD_HEIGHT;
+  var randi = util.randi;
+  var dist = util.dist;
+  var rectsOverlap = util.rectsOverlap;
+  var WORLD_WIDTH = 1024;
+  var WORLD_HEIGHT = 768;
   var walls = [];
   function init() {
     walls = [];
@@ -62,9 +65,11 @@
   }
   
   init();
-  window.uber7.map = {
+  return {
     init : init,
     hitsWorld : hitsWorld,
-    draw : draw
+    draw : draw,
+    WORLD_WIDTH: WORLD_WIDTH,
+    WORLD_HEIGHT: WORLD_HEIGHT
   };
-})();
+});

@@ -1,17 +1,18 @@
-/*global window, document */
+/*global document, define */
 /*jshint unused:true, undef: true, eqnull:true */
-(function() {
+define(
+['util', 'map', 'input', 'bullet']
+.concat(),
+function(util, map, input, bullet) {
   'use strict';
-  var randi = window.uber7.util.randi;
-  var WORLD_WIDTH = window.uber7.WORLD_WIDTH;
-  var WORLD_HEIGHT = window.uber7.WORLD_HEIGHT;
+  var randi = util.randi;
   var players = [];
   function init() {
     players = [];
     while (players.length === 0) {
-      var x = randi(0, WORLD_WIDTH);
-      var y = randi(0, WORLD_HEIGHT);
-      if (!window.uber7.map.hitsWorld(x - 10, y - 10, 21, 21)) {
+      var x = randi(0, map.WORLD_WIDTH);
+      var y = randi(0, map.WORLD_HEIGHT);
+      if (!map.hitsWorld(x - 10, y - 10, 21, 21)) {
         players.push({
           x : x,
           y : y
@@ -23,9 +24,9 @@
     var p0 = players[0];
     var plrmx = 0;
     var plrmy = 0;
-    var keyDownFlags = window.uber7.input.keyDownFlags;
-    var pad = window.uber7.input.pad;
-    var hitsWorld = window.uber7.map.hitsWorld;
+    var keyDownFlags = input.keyDownFlags;
+    var pad = input.pad;
+    var hitsWorld = map.hitsWorld;
     if(pad.moveAng != null) {
       plrmx = Math.cos(pad.moveAng);
       plrmy = Math.sin(pad.moveAng);
@@ -52,14 +53,14 @@
     var plrRadius = 10;
     for (var i = 0; i < players.length; i++) {
       var plr = players[i];
-      plr.x = Math.min(Math.max(plr.x, plrRadius), WORLD_WIDTH - 1 - plrRadius);
-      plr.y = Math.min(Math.max(plr.y, plrRadius), WORLD_HEIGHT - 1 - plrRadius);
+      plr.x = Math.min(Math.max(plr.x, plrRadius), map.WORLD_WIDTH - 1 - plrRadius);
+      plr.y = Math.min(Math.max(plr.y, plrRadius), map.WORLD_HEIGHT - 1 - plrRadius);
     }
-    var shoot = window.uber7.bullet.create;
+    var shoot = bullet.create;
     var toShoot = false;
     var aimmx = 0;
     var aimmy = 0;
-    var shootAng = window.uber7.input.pad.shootAng;
+    var shootAng = input.pad.shootAng;
     if(shootAng !== null) {
       aimmx = Math.cos(shootAng);
       aimmy = Math.sin(shootAng);
@@ -128,8 +129,8 @@
     }
   }
   init();
-  window.uber7.player = {
+  return {
     move : move,
     draw : draw
   };
-})();
+});

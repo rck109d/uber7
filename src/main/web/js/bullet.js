@@ -1,6 +1,9 @@
-/*global window */
+/*global define */
 /*jshint unused:true, undef: true, eqnull:true */
-(function() {
+define(
+['map']
+.concat(),
+function(map) {
   'use strict';
   var bullets = [];
   function create(x, y, mx, my) {
@@ -12,7 +15,7 @@
     });
   }
   function moveTick() {
-    var hitsWorld = window.uber7.map.hitsWorld;
+    var hitsWorld = map.hitsWorld;
     for (var i = 0; i < bullets.length; i++) {
       var bullet = bullets[i];
       bullet.x += bullet.mx;
@@ -46,10 +49,9 @@
       context.stroke();
     }
   }
-  
-  window.uber7.bullet = {
+  return {
     create : create,
     move : move,
     draw : draw
   };
-})();
+});

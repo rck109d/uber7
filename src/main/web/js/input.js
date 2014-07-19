@@ -1,6 +1,9 @@
-/*global window, document */
+/*global window, document, define */
 /*jshint unused:true, undef: true, eqnull:true */
-(function() {
+define(
+[]
+.concat(),
+function() {
   'use strict';
   var keyCodeToFlag = {
     87:'up',                // W
@@ -59,9 +62,9 @@
   document.addEventListener('keydown', function(e) { setKeyDownFlag(e.keyCode, true); }, false);
   document.addEventListener('keyup', function(e) { setKeyDownFlag(e.keyCode, false); }, false);
   window.addEventListener('blur', function(){clearFlags();}, false);
-  window.uber7.input = {
+  return {
     keyDownFlags: keyDownFlags,
     updateRawPad: updateRawPad,
     pad: pad
   };
-})();
+});

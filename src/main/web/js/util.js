@@ -1,6 +1,9 @@
-/*global window */
+/*global define */
 /*jshint unused:true, undef: true, eqnull:true */
-(function() {
+define(
+[]
+.concat(),
+function() {
   'use strict';
   function rand(a, b) {
     return Math.random() * (b - a) + a;
@@ -15,10 +18,10 @@
   function rectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
     return x1 + w1 >= x2 && y1 + h1 >= y2 && x2 + w2 >= x1 && y2 + h2 >= y1;
   }
-  window.uber7.util = {
+  return {
     rand : rand,
     randi : randi,
     dist : dist,
     rectsOverlap : rectsOverlap
   };
-})();
+});

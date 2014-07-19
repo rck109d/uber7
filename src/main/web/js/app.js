@@ -1,6 +1,9 @@
-/*global window, document, ko, navigator, _ */
-/*jshint unused:true, undef: true, eqnull:true */
-(function() {
+/*global define, window, document, navigator */
+/*jshint unused:true, undef: true, eqnull:true*/
+define(
+['underscore', 'jquery', 'knockout', 'input', 'map', 'player', 'bullet']
+.concat(),
+function(_, $, ko, input, map, player, bullet) {
   'use strict';
   function App() {
     if(!this instanceof App) {
@@ -8,37 +11,32 @@
     }
     var self = this;
     self.pad = ko.observable();
-    var WORLD_WIDTH = 1024, WORLD_HEIGHT = 768;
     var canvas = document.querySelector('canvas');
     var style = {
       display : 'block',
-      width : WORLD_WIDTH,
-      height : WORLD_HEIGHT,
+      width : map.WORLD_WIDTH,
+      height : map.WORLD_HEIGHT,
       margin : 'auto',
       background : 'black',
       border : '1px solid white'
     };
-    for ( var field in style) {
+    for (var field in style) {
       canvas.style[field] = style[field];
     }
-    canvas.width = WORLD_WIDTH;
-    canvas.height = WORLD_HEIGHT;
+    canvas.width = map.WORLD_WIDTH;
+    canvas.height = map.WORLD_HEIGHT;
     function move(dt) {
-      window.uber7.player.move(dt);
-      window.uber7.bullet.move(dt);
+      player.move(dt);
+      bullet.move(dt);
     }
     function draw(dt) {
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      window.uber7.map.draw(ctx, dt);
-      window.uber7.player.draw(ctx);
-      window.uber7.bullet.draw(ctx);
+      map.draw(ctx, dt);
+      player.draw(ctx);
+      bullet.draw(ctx);
     }
-    window.uber7 = {
-      WORLD_WIDTH : 1024,
-      WORLD_HEIGHT : 768
-    };
     var step = (function() {
       var lastTime;
       return function(timestamp) {
@@ -54,7 +52,7 @@
         _.each(navigator.getGamepads(), function(pad) {
           if(pad) {
             foundPad = pad;
-            window.uber7.input.updateRawPad(pad);
+            input.updateRawPad(pad);
           }
         });
         self.pad(foundPad);
@@ -63,7 +61,8 @@
     })();
     var raf = window.requestAnimationFrame.bind(null, step);
     raf();
-    ko.applyBindings(self);
   }
   window.app = new App();
-})();
+  ko.applyBindings(window.app);
+  return window.app;
+});
